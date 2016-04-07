@@ -1,0 +1,46 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.project{
+    display: block;
+    min-height: 200px;
+    background-color: #ccc;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 30px;
+    padding-top: 20px;
+    color: #555;
+}
+.project:hover{
+    background-color: #ddd;
+    color: #777;
+    text-decoration: none;
+}
+.user{
+    border-radius: 50px;
+    background-color: #ccc;
+    width: 70px;
+    height: 70px;
+    float: left;
+    margin: 10px;
+}
+.users{
+    background-color: #777;
+}
+.bar{
+    background-color: #4cae4c;
+    height: 36px;
+    width: 100%;
+    margin-bottom: 1px;
+
+}
+.bars {
+    position: absolute;
+    margin-top: 9px;
+    width: 100%;
+    padding: 30px;
+}
