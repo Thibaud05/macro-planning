@@ -39,7 +39,7 @@ macroPlanning.prototype = {
     },
     display : function()
     {
-        var html = '<div class="bars">'
+        /*var html = '<div class="bars">'
         for(var i= 0; i < this.data.length; i++)
         {
             var project = this.projects[i]
@@ -47,7 +47,8 @@ macroPlanning.prototype = {
             html += project.display()
         }
         html += '</div>'
-        html += this.displayTable()
+        */
+        var html = this.displayTable()
         $(this.container).html(html)
     },
     displayTable : function()
@@ -58,7 +59,12 @@ macroPlanning.prototype = {
 
         for(var i= 0; i <= this.data.length; i++)
         {
+            if(i>0){
+                var project = this.projects[i-1]
+                project.calcul(this.startDate,this.nbDay)
+            }
             var row = ""
+
             for(var j= 0; j < this.nbMonth; j++)
             {
                 if(i==0){
@@ -74,7 +80,9 @@ macroPlanning.prototype = {
                     var width = (end.diff(start,'Days') + 1)/ this.nbDay * 100
                     row += '<th width="' + width + '%">' + start.format("MMMM")+ '</th>'
                 }else{
-                    row += '<td>&nbsp;</td>'
+                    if(j==0 && i>0){
+                        row += '<td  colspan="' + this.nbMonth + '">' + project.display() + '</td>'
+                    }
                 }
             }
             row = "<tr>" + row + "</tr>"                
@@ -136,9 +144,9 @@ project.prototype = {
 
 // Use module
 // 
-var dataUT = [{"title":"titre 1","color":"#CDDC39","startDate":"15/04/2016","endDate":"05/05/2016"},
+var dataUT = [{"title":"titre 1","color":"#CDDC39","startDate":"01/04/2016","endDate":"05/05/2016"},
             {"title":"titre 2","color":"#FFC107","startDate":"01/05/2016","endDate":"15/05/2016"},
-            {"title":"titre 3","color":"#F44336","startDate":"12/05/2016","endDate":"12/06/2016"}]
+            {"title":"super long titre pour tester les bugs","color":"#F44336","startDate":"12/05/2016","endDate":"12/06/2016"}]
 
 $("#macroPlanning").macroPlanning(dataUT)
 
