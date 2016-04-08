@@ -32,15 +32,24 @@ body {
     background-color: #777;
 }
 .bar{
+    display: block;
     background-color: #4cae4c;
     height: 36px;
     width: 100%;
     margin-bottom: 1px;
-
+    text-align: center;
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.5);
+    padding-top:7px; 
+}
+.bar:hover{
+    text-decoration: none;
+    color: #000;
 }
 .bars {
     position: absolute;
-    margin-top: 9px;
+    margin-top: 39px;
     width: 100%;
-    padding: 30px;
+    padding: 0 30px 0 0;
+
 }

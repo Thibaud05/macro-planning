@@ -34,8 +34,8 @@ macroPlanning.prototype = {
             }
         }
 
-        this.nbDay = this.endDate.diff(this.startDate, 'days')
-        this.nbMonth = this.endDate.date(0).diff(this.startDate.clone().date(0), 'months') + 1
+        this.nbDay = this.endDate.diff(this.startDate, 'days') + 1
+        this.nbMonth = this.endDate.clone().date(0).diff(this.startDate.clone().date(0), 'months') + 1
     },
     display : function()
     {
@@ -64,17 +64,17 @@ macroPlanning.prototype = {
                 if(i==0){
                     if(j>0){
                         var monthValue = start.month()
-                        start = start.month(monthValue + 1).date(1)
+                        start = start.clone().month(monthValue + 1).date(1)
 
                     }
-                    end = start.endOf('month')
+                    end = start.clone().endOf('month')
                     if(j==this.nbMonth-1){
-                        end = this.endDate
+                        end = this.endDate.clone()
                     }
-                    var width = start.diff(end,'Days')/ this.nbDay * 100
+                    var width = (end.diff(start,'Days') + 1)/ this.nbDay * 100
                     row += '<th width="' + width + '%">' + start.format("MMMM")+ '</th>'
                 }else{
-                    row += '<td>-</td>'
+                    row += '<td>&nbsp;</td>'
                 }
             }
             row = "<tr>" + row + "</tr>"                
@@ -101,6 +101,7 @@ function project(data,dateFormat)
     this.title = data.title
     this.startDate = moment(data.startDate,dateFormat)
     this.endDate = moment(data.endDate,dateFormat)
+    this.duration = 0 // in day
     this.width = 0
     this.left = 0
     this.color = data.color
@@ -109,21 +110,17 @@ function project(data,dateFormat)
 project.prototype = {
     calcul : function(startDate,nbDay)
     {
-        console.log(this)
-        console.log(nbDay)
-        console.log(startDate)
-        console.log(this.endDate.diff(this.startDate, 'days'))
-        console.log(this.startDate.diff(startDate, 'days'))
-        console.log("----------")
-        this.width = this.endDate.diff(this.startDate, 'days') / nbDay * 100
-        this.left = this.startDate.diff(startDate, 'days') / nbDay * 100 
+        this.duration = this.endDate.diff(this.startDate, 'days') + 1
+        this.width = this.duration / nbDay * 100
+        this.left = (this.startDate.diff(startDate, 'days')) / nbDay * 100 
     },
-    display : function()
-    {
-        return '<div class="bar" style="'
+    display : function(){
+        var unit = " jour" + ((this.duration > 1) ? "s":"");
+        return '<a class="bar" href="#" style="'
         + 'width:' + this.width + '%;'
         + 'margin-left:' + this.left + '%;'
-        + 'background-color:' + this.color + ';"></div>'
+        + 'background-color:' + this.color + ';"'
+        +' data-toggle="tooltip" data-placement="top" title="' + this.duration + unit + '" >' + this.title + '</a>'
     }
 }
 
