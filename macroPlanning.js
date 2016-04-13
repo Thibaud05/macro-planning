@@ -46,15 +46,6 @@ macroPlanning.prototype = {
     },
     display : function()
     {
-        /*var html = '<div class="bars">'
-        for(var i= 0; i < this.data.length; i++)
-        {
-            var project = this.projects[i]
-            project.calcul(this.startDate,this.nbDay)
-            html += project.display()
-        }
-        html += '</div>'
-        */
         var html = this.displayTable()
         $(this.container).html(html)
     },
@@ -62,35 +53,43 @@ macroPlanning.prototype = {
     {
         var tbody   = ""
         var thead   = ""
-        var start = this.startDate.clone()
 
         for(var i= 0; i <= this.projects.length; i++)
         {
             if(i>0){
                 var project = this.projects[i-1]
-                project.calcul(this.startDate,this.nbDay)
+                project.calcul(this.startDate,this.endDate)
             }
             var row = ""
-
+            var colspan = 0
             for(var j= 0; j < this.nbMonth; j++)
             {
+                if(j>0){
+                    var monthValue = start.month()
+                    start = start.clone().month(monthValue + 1).date(1)
+                }else{
+                    start = this.startDate.clone()
+                }
+                end = start.clone().endOf('month')
+                if(j==this.nbMonth-1){
+                    end = this.endDate.clone()
+                }
                 if(i==0){
-                    if(j>0){
-                        var monthValue = start.month()
-                        start = start.clone().month(monthValue + 1).date(1)
-
-                    }
-                    end = start.clone().endOf('month')
-                    if(j==this.nbMonth-1){
-                        end = this.endDate.clone()
-                    }
                     var width = (end.diff(start,'Days') + 1)/ this.nbDay * 100
                     row += '<th width="' + width + '%">' + start.format("MMMM")+ '</th>'
                 }else{
-                    if(j==0 && i>0){
-                        row += '<td  colspan="' + this.nbMonth + '">' + project.display() + '</td>'
+
+                    range = moment().range(start, end)
+                    if(range.contains(project.startDate) && i>0){
+                        console.log("youpi")
+                        row += '<td  colspan="' + project.monthDuration + '">' + project.display() + '</td>'
+                    }
+
+                    if((project.endDate.isBefore(start) || project.startDate.isAfter(end))  && i>0){
+                        row += '<td>&nbsp</td>'
                     }
                 }
+
             }
             row = "<tr>" + row + "</tr>"                
             if(i==0){
@@ -117,17 +116,33 @@ function project(data,dateFormat)
     this.startDate = moment(data.startDate,dateFormat)
     this.endDate = moment(data.endDate,dateFormat)
     this.duration = 0 // in day
+    this.monthDuration = 0 // in month
     this.width = 0
     this.left = 0
     this.color = data.color
 }
 
 project.prototype = {
-    calcul : function(startDate,nbDay)
+    calcul : function(startDate,endDate)
     {
         this.duration = this.endDate.diff(this.startDate, 'days') + 1
-        this.width = this.duration / nbDay * 100
-        this.left = (this.startDate.diff(startDate, 'days')) / nbDay * 100 
+        var startPeriod = this.startDate.clone().date(1)
+        var endPeriod = this.endDate.clone().endOf('month')
+
+        if(startPeriod.isBefore(startDate)){
+            startPeriod = startDate
+        }
+        if(endPeriod.isAfter(endDate)){
+            endPeriod = endDate
+        }
+
+        var durationPeriod = endPeriod.diff(startPeriod, 'days') + 1
+
+        this.monthDuration = endPeriod.diff(startPeriod, 'months') + 1
+        console.log("monthDuration : " + this.monthDuration)
+
+        this.width = this.duration / durationPeriod * 100
+        this.left = (this.startDate.diff(startPeriod, 'days')) / durationPeriod * 100 
     },
     display : function(){
         var unit = " jour" + ((this.duration > 1) ? "s":"");
