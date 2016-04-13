@@ -14,15 +14,16 @@ function macroPlanning(container,data,dateFormat)
 macroPlanning.prototype = {
     init : function()
     {
+        var today = moment().startOf('day')
         for(var i= 0; i < this.data.length; i++)
         {
             var p = new project(this.data[i],this.dateFormat)
-            var today = moment()
-            
-            if(p.endDate.isAfter(today)){
+            if(p.endDate.isAfter(today))
+            {
                 this.projects.push(p)
-                if(p.startDate.isBefore(today)){
-                    p.startDate = today.clone().startOf('day')
+                if(p.startDate.isBefore(today))
+                {
+                    p.startDate = today.clone()
                 }
                 if(!this.startDate)
                 {
@@ -39,7 +40,6 @@ macroPlanning.prototype = {
                 }
             }   
         }
-
         this.nbDay = this.endDate.diff(this.startDate.clone(), 'days') + 1
         console.log(this.nbDay)
         this.nbMonth = this.endDate.clone().date(1).diff(this.startDate.clone().date(1), 'months') + 1
@@ -56,7 +56,8 @@ macroPlanning.prototype = {
 
         for(var i= 0; i <= this.projects.length; i++)
         {
-            if(i>0){
+            if(i>0)
+            {
                 var project = this.projects[i-1]
                 project.calcul(this.startDate,this.endDate)
             }
@@ -64,27 +65,30 @@ macroPlanning.prototype = {
             var colspan = 0
             for(var j= 0; j < this.nbMonth; j++)
             {
-                if(j>0){
+                if(j>0)
+                {
                     var monthValue = start.month()
                     start = start.clone().month(monthValue + 1).date(1)
-                }else{
+                }else
+                {
                     start = this.startDate.clone()
                 }
                 end = start.clone().endOf('month')
-                if(j==this.nbMonth-1){
+                if(j==this.nbMonth-1)
+                {
                     end = this.endDate.clone()
                 }
-                if(i==0){
+                if(i==0)
+                {
                     var width = (end.diff(start,'Days') + 1)/ this.nbDay * 100
                     row += '<th width="' + width + '%">' + start.format("MMMM")+ '</th>'
-                }else{
-
+                }else
+                {
                     range = moment().range(start, end)
                     if(range.contains(project.startDate) && i>0){
                         console.log("youpi")
                         row += '<td  colspan="' + project.monthDuration + '">' + project.display() + '</td>'
                     }
-
                     if((project.endDate.isBefore(start) || project.startDate.isAfter(end))  && i>0){
                         row += '<td>&nbsp</td>'
                     }
@@ -129,18 +133,17 @@ project.prototype = {
         var startPeriod = this.startDate.clone().date(1)
         var endPeriod = this.endDate.clone().endOf('month')
 
-        if(startPeriod.isBefore(startDate)){
+        if(startPeriod.isBefore(startDate))
+        {
             startPeriod = startDate
         }
-        if(endPeriod.isAfter(endDate)){
+        if(endPeriod.isAfter(endDate))
+        {
             endPeriod = endDate
         }
 
         var durationPeriod = endPeriod.diff(startPeriod, 'days') + 1
-
         this.monthDuration = endPeriod.diff(startPeriod, 'months') + 1
-        console.log("monthDuration : " + this.monthDuration)
-
         this.width = this.duration / durationPeriod * 100
         this.left = (this.startDate.diff(startPeriod, 'days')) / durationPeriod * 100 
     },
