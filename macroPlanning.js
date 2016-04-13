@@ -17,25 +17,32 @@ macroPlanning.prototype = {
         for(var i= 0; i < this.data.length; i++)
         {
             var p = new project(this.data[i],this.dateFormat)
-            this.projects[i] = p
-
-            if(!this.startDate)
-            {
-                this.startDate = p.startDate.clone()
-                this.endDate = p.endDate.clone()
-            }
-            if(p.startDate.isBefore(this.startDate))
-            {
-                this.startDate = p.startDate.clone()
-            }
-            if(p.endDate.isAfter(this.endDate))
-            {
-                this.endDate = p.endDate.clone()
-            }
+            var today = moment()
+            
+            if(p.endDate.isAfter(today)){
+                this.projects.push(p)
+                if(p.startDate.isBefore(today)){
+                    p.startDate = today.clone().startOf('day')
+                }
+                if(!this.startDate)
+                {
+                    this.startDate = p.startDate.clone()
+                    this.endDate = p.endDate.clone()
+                }
+                if(p.startDate.isBefore(this.startDate))
+                {
+                    this.startDate = p.startDate.clone()
+                }
+                if(p.endDate.isAfter(this.endDate))
+                {
+                    this.endDate = p.endDate.clone()
+                }
+            }   
         }
 
-        this.nbDay = this.endDate.diff(this.startDate, 'days') + 1
-        this.nbMonth = this.endDate.clone().date(0).diff(this.startDate.clone().date(0), 'months') + 1
+        this.nbDay = this.endDate.diff(this.startDate.clone(), 'days') + 1
+        console.log(this.nbDay)
+        this.nbMonth = this.endDate.clone().date(1).diff(this.startDate.clone().date(1), 'months') + 1
     },
     display : function()
     {
@@ -57,7 +64,7 @@ macroPlanning.prototype = {
         var thead   = ""
         var start = this.startDate.clone()
 
-        for(var i= 0; i <= this.data.length; i++)
+        for(var i= 0; i <= this.projects.length; i++)
         {
             if(i>0){
                 var project = this.projects[i-1]
