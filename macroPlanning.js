@@ -169,9 +169,9 @@ project.prototype = {
 
 // Use module
 // 
-var dataUT = [{"title":"titre 1","color":"#CDDC39","startDate":"01/04/2016","endDate":"05/05/2016"},
-            {"title":"titre 2","color":"#FFC107","startDate":"01/05/2016","endDate":"15/05/2016"},
-            {"title":"super long titre pour tester les bugs","color":"#F44336","startDate":"12/05/2016","endDate":"12/06/2016"}]
+var dataUT = [{"title":"titre 1","color":"#CDDC39","startDate":"01/10/2016","endDate":"05/11/2016"},
+            {"title":"titre 2","color":"#FFC107","startDate":"01/11/2016","endDate":"15/11/2016"},
+            {"title":"super long titre pour tester les bugs","color":"#F44336","startDate":"12/11/2016","endDate":"12/12/2016"}]
 
 $("#macroPlanning").macroPlanning(dataUT)
 
