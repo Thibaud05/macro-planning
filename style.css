@@ -126,7 +126,9 @@ body {
  * 
  ///////////////////*/
 
-
+.ac{
+    font-size: 14px;
+}
 .ac ul{
   margin:0;
   padding:0;
@@ -149,5 +151,4 @@ body {
 }
 .ac ul>li.selected{
   background-color:#eee;
-}
 }

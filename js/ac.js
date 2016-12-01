@@ -1,21 +1,6 @@
-//<input id="searchField" class="form-control acInput" type="text"  />
-var usersById = [];
-usersById[0] = {id:0,prenom: 'jean', nom: 'paul',ville:'paris',societe:'',poste:''};
-usersById[1] = {id:1,prenom: 'jean', nom: 'range',ville:'lyon'};
-usersById[2] = {id:2,prenom: 'paul', nom: 'palu',ville:'lyon'};
-usersById[3] = {id:3,prenom: 'jean paul', nom: 'barto',ville:'lyon'};
-usersById[4] = {id:4,prenom: 'thibaud', nom: 'granier',ville:'lyon'};
-usersById[5] = {id:5,prenom: 'jack', nom: 'pariche',ville:'paris',societe:'',poste:''};
-usersById[6] = {id:6,prenom: 'jimmy', nom: 'bilou',ville:'paris',societe:'',poste:''};
-
-
-$(function() {
-    var myAcUser = new acUser("#searchField",usersById);
-    myAcUser.init()
-});
 
 function acUser(field,data){
-    this.field = $(field)
+  this.field = $(field)
   this.usersById = data;
   this.selectedItem = -1;
   this.searchArray = []

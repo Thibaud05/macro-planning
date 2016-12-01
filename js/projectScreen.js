@@ -5,9 +5,10 @@
 //
 //////////////////////////////////////////
 
-function projectScreen(projectsJsonData){
+function projectScreen(projectsJsonData,usersById){
   this.nbCol = 3;
   this.projectsData = [];
+  this.usersById = usersById
   this.mapData(projectsJsonData);
 }
 
@@ -53,6 +54,7 @@ projectScreen.prototype = {
     },
     displayDetails: function(id)
     {
+        var self = this
         var p = this.projectsData[id];
         $("#screenContainer").html(p.displayDetails());
         $("#addUser").click(function(){
@@ -60,6 +62,8 @@ projectScreen.prototype = {
             $("#addUser").hide()
             $("#addUser").after('<input type="text" class="form-control" id="acUser" placeholder="User">')
             $("#acUser").focus()
+            var myAcUser = new acUser("#acUser",self.usersById);
+            myAcUser.init()
         });
 
     },
@@ -82,9 +86,23 @@ var projectsData = [
         {id:'5',name:'GEEK',img:'geek.png',color:"#1a237e",selected:0,desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu accumsan tortor, sit amet lobortis quam. '},
         {id:'6',name:'Comunauté running',color:"",selected:0,img:'run.png',desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu accumsan tortor, sit amet lobortis quam. '}];
 
+
+var usersById = [];
+usersById[0] = {id:0,prenom: 'jean', nom: 'paul',ville:'paris',societe:'',poste:''};
+usersById[1] = {id:1,prenom: 'jean', nom: 'range',ville:'lyon'};
+usersById[2] = {id:2,prenom: 'paul', nom: 'palu',ville:'lyon'};
+usersById[3] = {id:3,prenom: 'jean paul', nom: 'barto',ville:'lyon'};
+usersById[4] = {id:4,prenom: 'thibaud', nom: 'granier',ville:'lyon'};
+usersById[5] = {id:5,prenom: 'jack', nom: 'pariche',ville:'paris',societe:'',poste:''};
+usersById[6] = {id:6,prenom: 'jimmy', nom: 'bilou',ville:'paris',societe:'',poste:''};
+
+
+
+
+
 ;(function( $ ) {
     $("#btnProject").click(function(){
-        var ps = new projectScreen(projectsData);
+        var ps = new projectScreen(projectsData,usersById);
         ps.dispayMyProject();
     });
 })( jQuery );
