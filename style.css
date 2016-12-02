@@ -29,6 +29,7 @@ body {
 }
 .card .btn {
     outline: none;
+    background-color: #333;
 }
 .card .glyphicon-star{
     color: #CCCCCC;

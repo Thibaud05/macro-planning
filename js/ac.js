@@ -25,9 +25,10 @@ acUser.prototype = {
       }
     });
     this.field.blur(function() {
-      console.log("blur")
       $(this).val("")
       $(this).next(".ac").html("")
+      $("#addUser").show()
+      $("#acUser").remove()
     });
   },
     searchUser: function(){

@@ -43,11 +43,8 @@ project.prototype = {
     html += '<div class="container">';
     html += ' <div class="row">';
     html += '   <div class="col-md-6">' + this.displayUsers()
-    html += '     <h2>Enjeux</h2>';
-    html += '     <h2>Objectif</h2>';
-    html += '   </div>';
-    html += '   <div class="col-md-6"><img class="img-responsive" src="img/visual-pitch.png" /><h2>Description</h2>' + this.desc;
-    html += '   <h2>Liens</h2>' + this.displayDocuments()  + '</div>';
+    html += '     <h2>Liens</h2>' + this.displayDocuments()  
+    html += '   <div class="col-md-6"><br><img class="img-responsive" src="img/visual-pitch.png" /><h2>Description</h2>' + this.desc + '</div>';
     html += ' </div>';
     html += '</div>';
     return html;
