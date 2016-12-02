@@ -54,7 +54,13 @@ project.prototype = {
     var html = '<h2><form class="form-inline">Collaborateurs ';
     html += '<a id="addUser" href="#" class="btn btn-success" title="Ajouter un collaborateur"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>'
     html += '</from></h2>';
-    html += '<div class="users row"><div class="user"></div><div class="user"></div><div class="user"></div><div class="user"></div><div class="user"></div></div>';
+    html += '<div class="users row">';
+    html += '<div class="user"><div class="avatar"></div><div class="name">User 1</div></div>';
+    html += '<div class="user"><div class="avatar"></div><div class="name">User 2</div></div>';
+    html += '<div class="user"><div class="avatar"></div><div class="name">User 3</div></div>';
+    html += '<div class="user"><div class="avatar"></div><div class="name">User 4</div></div>';
+    html += '<div class="user"><div class="avatar"></div><div class="name">User 5</div></div>';
+    html += '</div>';
     return html;
   },
   displayBackground : function()

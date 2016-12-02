@@ -67,14 +67,26 @@ body {
     text-decoration: none;
 
 }
-.user{
+.users{
+    margin-bottom: 30px;
+    /*overflow: hidden;*/
+}
+.users .user{
+    float: left;
+    margin: 10px;
+    width: 70px;
+}
+.users .user .avatar{
     border-radius: 50px;
     background-color: #ccc;
     width: 70px;
     height: 70px;
-    float: left;
-    margin: 10px;
 }
+.users .user .name{
+    text-align: center;
+    margin-top: 5px;
+}
+
 .bar{
     display: block;
     background-color: #4cae4c;

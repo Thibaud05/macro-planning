@@ -86,7 +86,6 @@ var projectsData = [
         {id:'5',name:'GEEK',img:'geek.png',color:"#1a237e",selected:0,desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu accumsan tortor, sit amet lobortis quam. '},
         {id:'6',name:'Comunauté running',color:"",selected:0,img:'run.png',desc:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu accumsan tortor, sit amet lobortis quam. '}];
 
-
 var usersById = [];
 usersById[0] = {id:0,prenom: 'jean', nom: 'paul',ville:'paris',societe:'',poste:''};
 usersById[1] = {id:1,prenom: 'jean', nom: 'range',ville:'lyon'};
